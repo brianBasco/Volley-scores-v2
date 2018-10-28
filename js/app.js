@@ -159,8 +159,18 @@ function nouveauSet(){
 function change(){
 
         $(".equipe-gauche").toggleClass("droite");
-        $(".equipe-droite").toggleClass("droite");        
-}
+        $(".equipe-droite").toggleClass("droite");
+        
+        $(".row_btn-score").toggleClass("droite");
+
+        $(".equipe").toggleClass("droite");
+
+        $("#setDroite").toggleClass("droite");
+        $("#setGauche").toggleClass("gauche");
+        $("#nomDroite").toggleClass("gauche");
+        $("#nomGauche").toggleClass("droite");
+        
+ }
 
 
 //Incrémente le score du set et modifie la vue

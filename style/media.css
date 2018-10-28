@@ -19,12 +19,16 @@
  }
 
  @media (min-width: 768px) { 
-    
+    .body-scores {
+        width: 80%;
+    }
  }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) { 
-    
+    .body-scores {
+        width: 700px;
+    }
  }
 
 /* Extra large devices (large desktops, 1200px and up) */

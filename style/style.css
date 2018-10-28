@@ -9,7 +9,6 @@ background-color: rgb(255, 241, 43);
 .body-scores {
   background-color:rgb(255, 255, 255);
   color: white;
-  width: 50%;
   margin: 0 auto;
   padding-top: 30px;
 }
@@ -73,21 +72,21 @@ background-color: rgb(255, 241, 43);
 
 .round {
 	position: absolute;
-	top: 170px;
+	top: 110px;
 	left: 0;
 	right: 0;
-  margin: 0 auto;
-  text-align: center;
-  text-transform: uppercase;
-  background-color: rgba(0,0,0,0.5);
-  border: 2px solid white;
-  font-size: 20px;
-  font-weight: bold;
-  color: rgb(255, 241, 43);
-	width: 150px;
-	height: 60px;
-  vertical-align: initial;
-  z-index: 1000;
+	margin: 0 auto;
+	text-align: center;
+	text-transform: uppercase;
+	background-color: rgba(0,0,0,0.5);
+	border: 2px solid white;
+	font-size: 20px;
+	font-weight: bold;
+	color: rgb(255, 241, 43);
+	width: 94px;
+	height: 134px;
+	vertical-align: initial;
+	z-index: 1000;
 }
 
 .numeroRound {
@@ -110,15 +109,28 @@ section.scores{
 }
 
 .scores-panneau {
-  border: 1px solid white; }
+  border: 1px solid white; 
+}
 
 .scores-panneau .container {
-  margin-bottom: 15px; }
+  margin-bottom: 15px;
+}
 
+.equipe, .nom, .scoreSet {
+  transition: all linear .5s;
+}
 
 .equipe {
-  text-align: center;
+  height: 60px;
+  width: 84%;
 }
+
+.equipe.droite {
+  margin-left: 55px;
+}
+
+
+
 
 .equipe input{
   text-align: center;  
@@ -129,18 +141,43 @@ section.scores{
 
 .equipe .nom {
   width: 70%;
+  position: relative;
+  left: 0;
+}
+
+.equipe .nom.gauche {
+  left: -73px;
+}
+
+.equipe .nom.droite {
+  left: 73px;
 }
 
 .equipe .scoreSet {
-  width: 50%;
+  width: 27%;
+  position: relative;
+  left: 0;
 }
 
+.scoreSet.droite {
+  left: 73%;
+}
+
+.scoreSet.gauche {
+  left: -73%;
+}
+
+.temps-mort div {
+  display: inline-block;
+  width: 50%;
+  padding: 3px;
+}
 
 .temps-mort button {
   opacity: 0;
   padding: 0;
   height: 60px;
-  width: 50%;
+  width: 100%;
   font-size: 12px;
   border-radius: 0;
   background-color:  rgb(255, 241, 43);
@@ -160,11 +197,22 @@ section.scores{
   text-align: center;
 }
 
+.row_btn-score {  
+    padding: 10px 0px; 
+    width: 84%;
+    margin-left: 0;
+    transition: all linear 0.5s;
+}
+
+.row_btn-score.droite {
+  margin-left: 50px;
+}
+
 .score .btn-score{
-  width: 70px;
+  width: 95%;
   height: 100%;
   border-radius: 0;
-  border: none;
+  border: 2px solid white;
   background-color: transparent;
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
