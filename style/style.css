@@ -7,10 +7,13 @@ background-color: rgb(255, 241, 43);
 
 /* --------------------  body --------------- */
 .body-scores {
+  font-family: 'Roboto Condensed', sans-serif;
   background-color:rgb(255, 255, 255);
   color: white;
   margin: 0 auto;
   padding-top: 30px;
+  padding-bottom: 30px;
+  position: relative;
 }
 
 .body-scores .row {
@@ -64,6 +67,8 @@ background-color: rgb(255, 241, 43);
 /* --------------------------- main_content ---------------- */
 .main_content {
   
+  padding-top: 10px;
+  padding-bottom: 30px;
   background: #222226;
   background-color: rgba(22,21,20,0.7); 
 }
@@ -86,7 +91,7 @@ background-color: rgb(255, 241, 43);
 	width: 94px;
 	height: 134px;
 	vertical-align: initial;
-	z-index: 1000;
+	z-index: 2;
 }
 
 .numeroRound {
@@ -97,15 +102,12 @@ background-color: rgb(255, 241, 43);
   color: white;
 }
 
-section.scores{
-  padding-top: 10px;
-  height: 1000px;
-}
 
 /****** ------------- scores ---------------- */
 
 .scores {
   position: relative;
+  height: 450px;
 }
 
 .scores-panneau {
@@ -116,33 +118,50 @@ section.scores{
   margin-bottom: 15px;
 }
 
+
+.container_equipe {
+  height: 70px;
+}
+
 .equipe, .nom, .scoreSet {
   transition: all linear .5s;
 }
 
 .equipe {
-  height: 60px;
+  position: absolute;
+  height: 70px;
   width: 84%;
 }
 
-.equipe.droite {
-  margin-left: 55px;
+.equipe.gauche {
+  left: 0;
 }
 
+.equipe.droite {
+  right: 0;
+}
 
+.equipe .contenu {
+  position: static;
+}
 
 
 .equipe input{
+  
   text-align: center;  
   height: 60px;
   border-radius: 0;
-  border: 2px solid black;
+  border: none;
 }
 
 .equipe .nom {
-  width: 70%;
-  position: relative;
-  left: 0;
+	position: absolute;
+	left: 0;
+	right: initial;
+	height: 60px;
+  bottom: 3px;
+  width: 100%;
+  border: 2px solid black;
 }
 
 .equipe .nom.gauche {
@@ -154,9 +173,15 @@ section.scores{
 }
 
 .equipe .scoreSet {
-  width: 27%;
-  position: relative;
-  left: 0;
+	font-size: 3rem;
+	font-family: 'Teko', sans-serif;
+	width: 27%;
+	text-shadow: 2px 2px 2px rgb(140, 151, 160);
+	position: absolute;
+  border: 2px solid black;
+  bottom: 0;
+	right: 0;
+	height: 70px;
 }
 
 .scoreSet.droite {
@@ -229,6 +254,7 @@ section.scores{
 
 /* ------------------------ unScore ------------------ */
 .unScore {
+  text-align: center;
   font-family: 'Teko', sans-serif;
   text-shadow: 3px 3px 3px rgb(140, 151, 160);
   margin: 0 auto;
@@ -242,7 +268,11 @@ section.scores{
 }
 
 
-.droite{
+.equipe-droite.droite{
+  left: 50%;
+}
+
+.equipe-gauche.droite{
   left: 50%;
 }
 
@@ -301,23 +331,20 @@ section.scores{
 }
 
 /* CSS du recap */
-
 .recap {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  height: 0;
-  background-color: #000000;
-  z-index: 2;
-  display: none;
-  opacity: 0;
-  transition : all linear 0.1s;
+  padding: 20px 0;
 }
 
 .recap .container{
   margin: 0 auto;
-  width: 70%;
+  width: 80%;
   text-align: center;
+}
+
+.recap .contenu {
+  border: 2px solid white;
+  border-radius: 0;
+  padding: 30px 0;
 }
 
 .recap table{
@@ -325,14 +352,28 @@ section.scores{
 }
 
 .recap tr, th {
-  padding: 5px;
+  padding: 10px;
   text-align: center;
   border-bottom: 1px solid wheat;
 }
 
-.recap td {
-  padding: 5px;
-  font-size: 1.4rem;
+.recap tr:last-child {
+  border-bottom: none;
+}
+
+.recap input {
+  width: 175px;
+  height: 40px;
+  border: none;
+  border-radius: 0;
+  box-shadow: 0;
+  text-align: center;
+  background: transparent;
+  color: white;
+}
+
+.recap td{
+  padding: 10px;
 }
 
 
@@ -348,24 +389,14 @@ section.scores{
 }
 
 /* CSS du temps Mort technique */
-.accepterTpsMort {
-  display: none;
-  text-align: center;
-}
-
-.accepterTpsMort .btn {
-  height: 100px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
 .tempsMortTechnique {
+  z-index: 3;
   display: none;
   opacity: 0;
   position: absolute;
   top: 0;
+  bottom: 0;
   width: 100%;
-  height: 1000px;
   padding: 20px;
   text-align: center;
   color: white;
@@ -373,6 +404,9 @@ section.scores{
   transition: all linear 0.3s;
 }
 
+.tempsMortTechnique .contenu {
+  padding-top: 60px;
+}
 
 .tempsMortTechnique .info{
   width: 100%;
@@ -409,6 +443,7 @@ section.scores{
 
 .finMatch {
   display: none;
+  z-index: 3;
 }
 
 .finMatch .row {
@@ -426,16 +461,6 @@ section.scores{
 }
 
 .confMatch h1 {
-  text-align: center;
-  margin: 3px 0;
-}
-
-/* CSS du changement de position */
-.chgtPosition {
-  display: none;
-}
-
-.chgtPosition h1 {
   text-align: center;
   margin: 3px 0;
 }

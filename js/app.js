@@ -3,23 +3,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
     document.querySelector("#btn_inverser").addEventListener("click", function() {
         change();
     })
+
+    document.querySelector("#nomGauche").addEventListener("blur" , function() {
+        scoreGauche.attribuerNom();
+        recapNom();
+    })
+    
+    document.querySelector("#nomDroite").addEventListener("blur" , function() {
+        scoreDroite.attribuerNom();
+        recapNom();
+    })  
+
+    let tps_morts = document.querySelectorAll(".tps-mort");
+    for(let i = 0; i<tps_morts.length; i++) {
+        tps_morts[i].addEventListener("click", function(){
+            enlever(this);
+        })
+    }
 })
 
 function initSet(){
     if(sessionStorage.getItem('set') == null) sessionStorage.setItem('set', 1);
-}
-
-
-function rechargerService(){
-    if( (sessionStorage.getItem('serviceGauche') == null) || (sessionStorage.getItem('serviceDroite') == null) ){
-        sessionStorage.setItem('serviceGauche', 0);
-        sessionStorage.setItem('serviceDroite', 0);
-    }
-    else {
-        if(sessionStorage.getItem('serviceGauche') == 1) attrService("scoreGauche");
-        else if(sessionStorage.getItem('serviceDroite') == 1) attrService("scoreDroite");
-    }
-    
 }
 
 
@@ -31,12 +35,6 @@ function initTpsMort(){
     
 }
 
-function initChangementSet5(){
-    if(sessionStorage.getItem('changementSet5') == null) 
-    {
-        sessionStorage.setItem('changementSet5', 0);
-    }
-}
 
 function loadingTpsMort(){
     var tpsmortGauche = sessionStorage.getItem('tpsMortGauche');
@@ -72,18 +70,6 @@ function setTpsMortTech(){
     sessionStorage.setItem('tpsMortTech2', 0);
 }
 
-//fonction permettant d'initaliser la variable inverse à false
-function inverser(){
-    //si elle n'est pas initialisée on l'initialise à false
-    if(sessionStorage.getItem("inverse") == null){
-        sessionStorage.setItem('inverse', 0);
-    }
-   
-    //sinon, il faut modifier les positions des div
-    else if(sessionStorage.getItem('inverse') % 2 == 1) {
-        change();
-    }
-}
 
 //récupère l'ID d'une balise et l'affiche
 function ouvrirDiv(div) {
@@ -129,22 +115,14 @@ function nouveauSet(){
     incrementer_set();
 
     //insertion du set dans le HTML
-    setNumeroRound();
+    afficherRound();
     
-    //store la nouvelle position des div
-    var inverse = sessionStorage.getItem('inverse');
-    inverse++;
-    sessionStorage.setItem('inverse', inverse);
-
     //Remet les scores à 0
     scoreGauche.remiseZero();
     scoreDroite.remiseZero();
 
     //Remet les temps morts techniques à 0
     setTpsMortTech();
-    
-    // Remet le service à 0
-    setService();
     
     //echange les div de place
     change();
@@ -201,11 +179,12 @@ function clickScore(actionAfaire) {
     //enregistre les scores dans le recap
     enregistrer_score();
 
+    //affichage dans recap
+    recap();
+
     //affiche les temps morts techniques
     var tpsMorttech1 = sessionStorage.getItem('tpsMortTech1');
     var tpsMorttech2 = sessionStorage.getItem('tpsMortTech2');
-
-    var changementSet5 = sessionStorage.getItem('changementSet5');
 
     var gauche = parseInt(sessionStorage.getItem("scoreGauche"));
     var droite = parseInt(sessionStorage.getItem("scoreDroite"));
@@ -214,12 +193,12 @@ function clickScore(actionAfaire) {
     if(set_en_cours() < 5){
         if( (gauche == 8 || droite == 8) && (tpsMorttech1 == 0) )
             {
-                ouvrirDiv('accepterTpsMort');
+                if(window.confirm("prendre tps mort")) afficherTempsMort("technique");
                 sessionStorage.setItem('tpsMortTech1', 1);
             }
         if((gauche == 16 || droite == 16) && (tpsMorttech2 == 0) )
             {
-                ouvrirDiv('accepterTpsMort');
+                if(window.confirm("prendre tps mort")) afficherTempsMort("technique");
                 sessionStorage.setItem('tpsMortTech2', 1);
             }
 
@@ -232,11 +211,11 @@ function clickScore(actionAfaire) {
     }
         
     else if(set_en_cours() == 5){
-        //changementSet5 contient si le changement a été fait,
-        //0 pour non , 1 pour oui
-        if( ((gauche == 8) || (droite == 8)) && changementSet5 == 0) 
+
+        //demande de changement de position
+        if( ((gauche == 8) || (droite == 8)) ) 
         {
-            ouvrirDiv("chgtPosition");
+            if(window.confirm("changer position")) change();
         }
         if((gauche >=15 || droite >= 15) && (((gauche - droite) >= 2) || ((droite - gauche) >= 2)))
         {
@@ -245,18 +224,6 @@ function clickScore(actionAfaire) {
     }
 }
 
-function inverserPositionSet5(){
-
-    fermerDiv("chgtPosition");
-
-    sessionStorage.setItem('changementSet5', 1);
-    //store la nouvelle position des div
-    //Invsersion des positions
-    var inverse = sessionStorage.getItem('inverse');
-    inverse++;
-    sessionStorage.setItem('inverse', inverse);
-    change();
-}
 
 function finSet(){
         insertionInfos();
@@ -269,21 +236,27 @@ function finMatch(){
 }
 
 //Fait disparaitre les temps morts quand ils sont cliqués
-function enlever(numero){
-    var id = "tps" + numero;
-    if(numero == 1 || numero == 2){
-        var tpsMort = sessionStorage.getItem('tpsMortGauche');
-        tpsMort --;
-        sessionStorage.setItem('tpsMortGauche', tpsMort);
-    }
-    else {
-        var tpsMort = sessionStorage.getItem('tpsMortDroite');
-        tpsMort --;
-        sessionStorage.setItem('tpsMortDroite', tpsMort);
+function enlever(element){
+    
+    if(window.confirm("temps mort")) {
+        afficherTempsMort('normal');
+
+        let numero = element.getAttribute("data-tps_mort");
+
+        if(numero == 1 || numero == 2){
+            var tpsMort = sessionStorage.getItem('tpsMortGauche');
+            tpsMort --;
+            sessionStorage.setItem('tpsMortGauche', tpsMort);
+        }
+        else {
+            var tpsMort = sessionStorage.getItem('tpsMortDroite');
+            tpsMort --;
+            sessionStorage.setItem('tpsMortDroite', tpsMort);
+        }
+        
+        element.style.opacity = 0;
     }
     
-    document.getElementById(id).style.opacity = 0;
-    afficherTempsMort('normal');
 }
 
    
@@ -295,8 +268,7 @@ function afficherTempsMort(tpsMort) {
 
     //Si c'est un temps mort technique
     if (tpsMort == "technique") {
-
-        fermerDiv('accepterTpsMort');        
+              
         tps.css("display", "block");
 
         setTimeout(function () {
@@ -319,13 +291,11 @@ function afficherTempsMort(tpsMort) {
 
 function passerTempsMortTechnique(){
     var tps = $("#tempsMortTechnique");
-    var image = $("#image");
 
     tps.css("opacity", 0);
     tps.css("display", "none");
-    image.attr("src", "");
-    
 }
+
 
 //Tout remettre à zéro et supprimer les sessions storage
 function nouveauMatch(){
@@ -353,27 +323,7 @@ function enregistrer_score(){
 
 function set_en_cours(){
 
-    var set = 'set';
-
-    if(sessionStorage.getItem(set) == 1) {
-        return 1;
-    }
-
-    else if(sessionStorage.getItem(set) == 2) {
-        return 2;
-    }
-        
-    else if(sessionStorage.getItem(set) == 3) {
-        return 3;
-    }
-
-    else if(sessionStorage.getItem(set) == 4) {
-        return 4;
-    }
-
-    else if(sessionStorage.getItem(set) == 5) {
-        return 5;
-    }
+    return sessionStorage.getItem('set');
 }
 
 function incrementer_set(){
@@ -396,11 +346,11 @@ function afficherNewSet(){
 
     afficherRound();
 
-    if(b("nomGauche") != "equipe" && b("nomGauche") != "") equipe1.innerHTML = sessionStorage.getItem('nomGauche');
-    else equipe1.innerHTML = "equipe 1";
+    if(b("nomGauche") != "equipe" && b("nomGauche") != "") equipe1.value = sessionStorage.getItem('nomGauche');
+    else equipe1.value = "equipe 1";
 
-    if(b("nomDroite") != "equipe" && b("nomDroite") != "") equipe2.innerHTML = sessionStorage.getItem('nomDroite');
-    else equipe2.innerHTML = "equipe 2";
+    if(b("nomDroite") != "equipe" && b("nomDroite") != "") equipe2.value = sessionStorage.getItem('nomDroite');
+    else equipe2.value = "equipe 2";
 
     $('.newSet').css('height', height);
     $('.newSet').css('display', 'block');
@@ -412,14 +362,11 @@ function afficherNewSet(){
 
 function afficherRound(){
     var balise = document.getElementById('numeroRound');
-    if(set_en_cours() == 2) balise.innerHTML = 2;
-    else if(set_en_cours() == 3) balise.innerHTML = 3;
-    else if(set_en_cours() == 4) balise.innerHTML = 4;
-    else if(set_en_cours() == 5) balise.innerHTML = 5;
+    balise.value = set_en_cours();
 }
 
 function a(cle){
-    return document.getElementById(cle).innerHTML = sessionStorage.getItem(cle);
+    return document.getElementById(cle).value = sessionStorage.getItem(cle);
 }
 
 function b(cle){
@@ -472,9 +419,7 @@ function insertionInfos(){
 
 }
 
-function setNumeroRound() {
-    $("#numeroRound").html(sessionStorage.getItem("set"));
-}
+
 
 
 
