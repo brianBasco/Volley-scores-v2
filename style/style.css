@@ -38,23 +38,37 @@ background-color: rgb(255, 241, 43);
 
 /* --------------- header --------------------- */
 .header {
+  height: 70px;
   padding: 10px 0;
   background-color: white;
   text-align: center;
 }
 
 .header .btn{
+  position: absolute;
   background-color: white;
   color:black;
   font-weight: bold;
   border: 2px solid black;
-  border-radius: 0;
+  border-radius: 50px;
   box-shadow: 0;
   height: 50px;
 }
 
+.header .btn.match {
+  left: 15px;
+}
+
+.header .btn.set {
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: auto;
+}
+
 
 .header .btn_inverser {
+  right: 15px;
   background-image: url("images/btn_inverser.png");
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
@@ -77,7 +91,7 @@ background-color: rgb(255, 241, 43);
 
 .round {
 	position: absolute;
-	top: 110px;
+	top: 114px;
 	left: 0;
 	right: 0;
 	margin: 0 auto;
@@ -89,17 +103,40 @@ background-color: rgb(255, 241, 43);
 	font-weight: bold;
 	color: rgb(255, 241, 43);
 	width: 94px;
-	height: 134px;
 	vertical-align: initial;
 	z-index: 2;
 }
 
+.round .contenu {
+  position: relative;
+  height: 140px;
+}
+
+.round .contenu h1 {
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  top: 10px;
+  font-size: 3rem;
+  color: #d5da18;
+  font-weight: bold;
+  text-shadow: 0px 0px 3px #0c99bf;
+}
+
 .numeroRound {
   width: 100%;
-  height: 100%;
   border: none;
   background: transparent;
-  color: white;
+  position: absolute;
+  left: 0;
+  right: 0;
+  text-align: center;
+  bottom: 10px;
+  font-size: 3rem;
+  color: #d5da18;
+  font-weight: bold;
+  text-shadow: 0px 0px 3px #0c99bf;
 }
 
 
@@ -121,6 +158,7 @@ background-color: rgb(255, 241, 43);
 
 .container_equipe {
   height: 70px;
+  position: relative;
 }
 
 .equipe, .nom, .scoreSet {
@@ -131,6 +169,7 @@ background-color: rgb(255, 241, 43);
   position: absolute;
   height: 70px;
   width: 84%;
+  right: 16%;
 }
 
 .equipe.gauche {
@@ -157,7 +196,6 @@ background-color: rgb(255, 241, 43);
 .equipe .nom {
 	position: absolute;
 	left: 0;
-	right: initial;
 	height: 60px;
   bottom: 3px;
   width: 100%;
@@ -180,17 +218,14 @@ background-color: rgb(255, 241, 43);
 	position: absolute;
   border: 2px solid black;
   bottom: 0;
-	right: 0;
+  right: 0;
 	height: 70px;
 }
 
-.scoreSet.droite {
-  left: 73%;
+.equipe .scoreSet.droite {
+  right: 73%;
 }
 
-.scoreSet.gauche {
-  left: -73%;
-}
 
 .temps-mort div {
   display: inline-block;
@@ -222,15 +257,15 @@ background-color: rgb(255, 241, 43);
   text-align: center;
 }
 
-.row_btn-score {  
-    padding: 10px 0px; 
-    width: 84%;
-    margin-left: 0;
-    transition: all linear 0.5s;
+.row_btn-score {
+  position: absolute;
+  left: 0;    
+  width: 84%;
+  transition: all linear 0.5s;
 }
 
 .row_btn-score.droite {
-  margin-left: 50px;
+  left: 16%;
 }
 
 .score .btn-score{
@@ -244,12 +279,33 @@ background-color: rgb(255, 241, 43);
   background-size: contain; /* Resize the background image to cover the entire container */
 }
 
+.container_btn {
+  position: relative;
+  height: 70px;
+  height: 80px;
+  margin-bottom: 10px;
+}
+
 .score .btn_plus {
-  background-image: url("images/btn_plus.png");  
+  font-size: 3rem;
+  line-height: 0;
+  color: #19bbe4;
+  border-color: #19bbe4; 
 }
 
 .score .btn_moins {
-  background-image: url("images/btn_moins.png");  
+    font-size: 3rem;
+    line-height: 0;
+    color: #ef8e12;
+    border-color: #ef8e12;
+}
+
+.score .btn_plus:after {
+  content: '+';
+}
+
+.score .btn_moins:after {
+  content: '-';
 }
 
 /* ------------------------ unScore ------------------ */
@@ -343,8 +399,9 @@ background-color: rgb(255, 241, 43);
 
 .recap .contenu {
   border: 2px solid white;
-  border-radius: 0;
+  border-radius: 10px;
   padding: 30px 0;
+  background: rgba(0,0,0,0.7);
 }
 
 .recap table{
@@ -422,7 +479,7 @@ background-color: rgb(255, 241, 43);
 
 .tempsMortTechnique .btn-tpsMort {
   width: 100%;
-  height: 120px;
+  height: 150px;
   font-size: 40px;
   background-color: white;
   color: black;

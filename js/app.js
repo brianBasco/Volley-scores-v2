@@ -1,5 +1,9 @@
 document.addEventListener("DOMContentLoaded", function(event) {
 
+    document.querySelector("#nveauMatch").addEventListener("click", function() {
+        nouveauMatch();
+    })
+
     document.querySelector("#btn_inverser").addEventListener("click", function() {
         change();
     })
@@ -144,10 +148,7 @@ function change(){
         $(".equipe").toggleClass("droite");
 
         $("#setDroite").toggleClass("droite");
-        $("#setGauche").toggleClass("gauche");
-        $("#nomDroite").toggleClass("gauche");
-        $("#nomGauche").toggleClass("droite");
-        
+        $("#setGauche").toggleClass("droite");        
  }
 
 
@@ -300,11 +301,10 @@ function passerTempsMortTechnique(){
 //Tout remettre à zéro et supprimer les sessions storage
 function nouveauMatch(){
 
-    fermerDiv('finMatch');
-
-    sessionStorage.clear();
-
-	location = location;
+    if(window.confirm("nouveau Match ?")) {
+        sessionStorage.clear();
+        location = location;
+    }
 }
 
 //Enregistrement du score dans sessionStorage
@@ -418,6 +418,8 @@ function insertionInfos(){
     scoreDroite.html(score2);
 
 }
+
+
 
 
 

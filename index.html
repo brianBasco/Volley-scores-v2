@@ -27,8 +27,8 @@
         <div id="appli" class="appli">
 
 		<header class="header">
-            <button class="btn" onclick="ouvrirDiv('confMatch')">burger</button>
-            <button id="nveauSet" class="btn" onclick="nouveauSet()" disabled>set</button>
+            <button id="nveauMatch" class="btn match">match</button>
+            <button id="nveauSet" class="btn set" onclick="nouveauSet()" disabled>set</button>
             <button id="btn_inverser" class="btn btn_inverser" ></button>
 		</header>
 
@@ -37,28 +37,38 @@
 
             <!-- Sections du main-container -->
     <div id="round" class="round">
+        <div class="contenu">
+        <h1>SET</h1>            
         <input type="text" id="numeroRound" class="numeroRound" />
+        </div>
     </div>
 
 
 	<section class="scores container-fluid">
 
-            <!-- Score gauche -->
-            <div class="equipe-gauche anime">
-
+        <!-- Score gauche -->
+        <div class="equipe-gauche anime">
+        
+            <div class="container_equipe">
                 <div class="equipe">
-                     <input id="nomGauche" class="nom" type="text" placeholder="equipe" >
-                     <input id="setGauche"  class="scoreSet" />
+                    <div class="contenu">
+                        <input id="nomGauche" class="nom" type="text" placeholder="equipe">
+                        <input id="setGauche" class="scoreSet" />
+                    </div>
                 </div>
+            </div>
+                
 
                 <div>
 
-                    <div class="row row_btn-score">
-                        <div class="score score_moins">
-                            <button class="btn btn-score btn_moins" onclick="clickScore(scoreGauche.moins())"></button>
-                        </div>
-                        <div class="score score_plus">
-                            <button class="btn btn-score btn_plus" onclick="clickScore(scoreGauche.plus())"></button>
+                    <div class="container_btn">
+                        <div class="row row_btn-score">
+                            <div class="score score_moins">
+                                <button class="btn btn-score btn_moins" onclick="clickScore(scoreGauche.moins())"></button>
+                            </div>
+                            <div class="score score_plus">
+                                <button class="btn btn-score btn_plus" onclick="clickScore(scoreGauche.plus())"></button>
+                            </div>
                         </div>
                     </div>
 
@@ -90,21 +100,23 @@
 
                 <div class="container_equipe">
                     <div class="equipe droite">
-                        <div class="contenu">                     
-                            <input id="setDroite" class="scoreSet" />
+                        <div class="contenu">
                             <input id="nomDroite" class="nom" type="text" placeholder="equipe" onblur="scoreDroite.attribuerNom()">
+                            <input id="setDroite" class="scoreSet droite" />
                         </div>
                     </div>
                 </div>
 
                 <div>
 
-                    <div class="row row_btn-score droite">
-                        <div class="score score_moins">
-                            <button class="btn btn-score btn_moins" onclick="clickScore(scoreDroite.moins())"></button>
-                        </div>
-                        <div class="score score_plus">
-                            <button class="btn btn-score btn_plus" onclick="clickScore(scoreDroite.plus())"></button>
+                    <div class="container_btn">
+                        <div class="row row_btn-score droite">
+                            <div class="score score_moins">
+                                <button class="btn btn-score btn_moins" onclick="clickScore(scoreDroite.moins())"></button>
+                            </div>
+                            <div class="score score_plus">
+                                <button class="btn btn-score btn_plus" onclick="clickScore(scoreDroite.plus())"></button>
+                            </div>
                         </div>
                     </div>
 
