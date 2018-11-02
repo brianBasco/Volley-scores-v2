@@ -512,6 +512,15 @@ background-color: rgb(255, 241, 43);
   text-align: center;
 }
 
+.finMatch button.fermer {
+	float: right;
+	border: none;
+	background: transparent;
+	font-size: 2rem;
+  color: white;
+  width: initial;
+  height: initial;
+}
 /* CSS de confMatch*/
 
 .confMatch  {
