@@ -412,6 +412,7 @@ background-color: rgb(255, 241, 43);
   padding: 10px;
   text-align: center;
   border-bottom: 1px solid wheat;
+  width: 70px;
 }
 
 .recap tr:last-child {
